@@ -37,6 +37,15 @@ export default function Chat() {
     setActiveRoom(room);
   };
 
+  const handleSelectRoom = async (room) => {
+    if (room.type === "group") {
+      const { data } = await api.post(`/rooms/${room._id}/join`);
+      setActiveRoom(data.room);
+      return;
+    }
+    setActiveRoom(room);
+  };
+
   if (!user) return null;
 
   return (
@@ -46,7 +55,7 @@ export default function Chat() {
         dmRooms={dmRooms}
         allUsers={allUsers}
         activeRoom={activeRoom}
-        onSelectRoom={setActiveRoom}
+        onSelectRoom={handleSelectRoom}
         onRoomCreated={handleRoomCreated}
         onStartDm={handleStartDm}
       />

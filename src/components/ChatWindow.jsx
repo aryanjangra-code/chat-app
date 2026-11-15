@@ -6,6 +6,7 @@ import TypingIndicator from "./TypingIndicator";
 import { api } from "../utils/api";
 import { useAuth } from "../context/AuthContext";
 import { useSocket } from "../context/SocketContext";
+import { mergeMessages } from "../utils/chatState";
 
 export default function ChatWindow({ room }) {
   const { user } = useAuth();
@@ -19,7 +20,7 @@ export default function ChatWindow({ room }) {
   const otherMember = room.type === "dm" ? room.members.find((m) => m._id !== user.id) : null;
 
   useEffect(() => {
-    if (Notification && Notification.permission === "default") {
+    if (typeof Notification !== "undefined" && Notification.permission === "default") {
       Notification.requestPermission();
     }
   }, []);
@@ -27,7 +28,7 @@ export default function ChatWindow({ room }) {
   useEffect(() => {
     let active = true;
     api.get(`/rooms/${room._id}/messages`).then(({ data }) => {
-      if (active) setMessages(data.messages);
+      if (active) setMessages((liveMessages) => mergeMessages(data.messages, liveMessages));
     });
     socket?.emit("room:join", room._id);
     return () => {
@@ -43,7 +44,12 @@ export default function ChatWindow({ room }) {
       if (msg.room !== room._id) return;
       setMessages((prev) => [...prev, msg]);
 
-      if (msg.sender._id !== user.id && document.hidden) {
+      if (
+        msg.sender._id !== user.id &&
+        document.hidden &&
+        typeof Notification !== "undefined" &&
+        Notification.permission === "granted"
+      ) {
         new Notification(`${msg.sender.username}`, { body: msg.text });
       }
     };
