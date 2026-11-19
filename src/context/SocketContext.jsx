@@ -1,18 +1,18 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { SOCKET_URL } from "../utils/api";
-import { useAuth } from "./AuthContext";
-
-const SocketContext = createContext(null);
+import { useAuth } from "./use-auth";
+import { SocketContext } from "./socket-context";
 
 export const SocketProvider = ({ children }) => {
   const { user } = useAuth();
+  const userId = user?.id;
   const [socket, setSocket] = useState(null);
   const [connected, setConnected] = useState(false);
   const [onlineMap, setOnlineMap] = useState({});
 
   useEffect(() => {
-    if (!user) {
+    if (!userId) {
       setSocket(null);
       setConnected(false);
       return undefined;
@@ -40,7 +40,7 @@ export const SocketProvider = ({ children }) => {
       setSocket(null);
       setConnected(false);
     };
-  }, [user?.id]);
+  }, [userId]);
 
   return (
     <SocketContext.Provider value={{ socket, connected, onlineMap }}>
@@ -48,5 +48,3 @@ export const SocketProvider = ({ children }) => {
     </SocketContext.Provider>
   );
 };
-
-export const useSocket = () => useContext(SocketContext);

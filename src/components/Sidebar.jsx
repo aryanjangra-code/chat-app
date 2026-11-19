@@ -3,8 +3,8 @@ import { Hash, Plus, LogOut, Users } from "lucide-react";
 import Avatar from "./Avatar";
 import ThemeToggle from "./ThemeToggle";
 import NewRoomModal from "./NewRoomModal";
-import { useAuth } from "../context/AuthContext";
-import { useSocket } from "../context/SocketContext";
+import { useAuth } from "../context/use-auth";
+import { useSocket } from "../context/use-socket";
 
 export default function Sidebar({ groupRooms, dmRooms, allUsers, activeRoom, onSelectRoom, onRoomCreated, onStartDm }) {
   const [showModal, setShowModal] = useState(false);

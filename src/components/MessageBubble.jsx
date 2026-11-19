@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import anime from "animejs";
 import { SmilePlus, Pencil, Trash2, Check, X } from "lucide-react";
 import Avatar from "./Avatar";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/use-auth";
 
 const QUICK_EMOJIS = ["👍", "❤️", "😂", "😮", "🙏"];
 

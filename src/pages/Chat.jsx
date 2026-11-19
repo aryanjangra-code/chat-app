@@ -3,7 +3,7 @@ import { MessageCircle } from "lucide-react";
 import Sidebar from "../components/Sidebar";
 import ChatWindow from "../components/ChatWindow";
 import { api } from "../utils/api";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/use-auth";
 
 export default function Chat() {
   const { user } = useAuth();

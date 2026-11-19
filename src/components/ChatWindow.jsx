@@ -4,8 +4,8 @@ import Avatar from "./Avatar";
 import MessageBubble from "./MessageBubble";
 import TypingIndicator from "./TypingIndicator";
 import { api } from "../utils/api";
-import { useAuth } from "../context/AuthContext";
-import { useSocket } from "../context/SocketContext";
+import { useAuth } from "../context/use-auth";
+import { useSocket } from "../context/use-socket";
 import { mergeMessages } from "../utils/chatState";
 
 export default function ChatWindow({ room }) {

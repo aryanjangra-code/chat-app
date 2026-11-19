@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import anime from "animejs";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/use-auth";
 import { MessageCircle } from "lucide-react";
 
 export default function Signup() {
