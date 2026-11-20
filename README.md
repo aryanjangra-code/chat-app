@@ -31,6 +31,8 @@ Create `.env` in this frontend directory if the API runs somewhere other than th
 VITE_API_URL=http://localhost:5000
 ```
 
+For production, set `VITE_API_URL` to the deployed backend URL before building the frontend. The production app requires this value.
+
 Start the development server:
 
 ```bash
