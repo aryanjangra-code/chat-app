@@ -7,12 +7,13 @@ const SocketContext = createContext(null);
 
 export const SocketProvider = ({ children }) => {
   const { user } = useAuth();
+  const userId = user?.id;
   const [socket, setSocket] = useState(null);
   const [connected, setConnected] = useState(false);
   const [onlineMap, setOnlineMap] = useState({});
 
   useEffect(() => {
-    if (!user) {
+    if (!userId) {
       setSocket(null);
       setConnected(false);
       return undefined;
@@ -40,7 +41,7 @@ export const SocketProvider = ({ children }) => {
       setSocket(null);
       setConnected(false);
     };
-  }, [user?.id]);
+  }, [userId]);
 
   return (
     <SocketContext.Provider value={{ socket, connected, onlineMap }}>
